@@ -6,7 +6,7 @@ import it.prova.myebay.model.Categoria;
 
 public interface CategoriaService {
 
-public List<Categoria> listAll() ;
+	public List<Categoria> listAll();
 	
 	public Categoria caricaSingoloElemento(Long id) ;
 

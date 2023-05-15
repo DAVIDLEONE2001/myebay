@@ -38,7 +38,33 @@ public class Annuncio {
 	
 	@ManyToMany
 	@JoinTable(name = "annuncio_categoria", joinColumns = @JoinColumn(name = "annuncio_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "ID"))
-	private Set<Categoria> categorie = new HashSet<>();
+	private Set<Categoria> categorie = new HashSet<>(0);
+
+	
+	
+	public Annuncio(Long id, String testoAnnuncio, Double prezzo, LocalDate data, Boolean isAperto) {
+		super();
+		this.id = id;
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+		this.data = data;
+		this.isAperto = isAperto;
+	}
+
+	
+	
+	public Annuncio(Long id, String testoAnnuncio, Double prezzo, LocalDate data, Boolean isAperto,
+			Utente utenteInserimento) {
+		super();
+		this.id = id;
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+		this.data = data;
+		this.isAperto = isAperto;
+		this.utenteInserimento = utenteInserimento;
+	}
+
+
 
 	public Annuncio() {
 	}

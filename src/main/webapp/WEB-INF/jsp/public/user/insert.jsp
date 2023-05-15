@@ -5,7 +5,7 @@
 	 <head>
 	 
 	 	<!-- Common imports in pages -->
-	 	<jsp:include page="${pageContext.request.contextPath}/header.jsp" />
+	 	<jsp:include page="../header.jsp" />
 	 	 <style>
 		    .error_field {
 		        color: red; 
@@ -17,7 +17,7 @@
 	   <body class="d-flex flex-column h-100">
 	   
 	   		<!-- Fixed navbar -->
-	   		<jsp:include page="/${pageContext.request.contextPath}/navbar.jsp"></jsp:include>
+	   		<jsp:include page="../navbar.jsp"></jsp:include>
 	    
 			
 			<!-- Begin page content -->
@@ -39,14 +39,14 @@
 			  
 			  <div class='card'>
 				    <div class='card-header'>
-				        <h5>Inserisci nuovo elemento</h5> 
+				        <h5>Sign Up</h5> 
 				    </div>
 				    <div class='card-body'>
 		
 							<h6 class="card-title">I campi con <span class="text-danger">*</span> sono obbligatori</h6>
 		
 		
-							<form:form modelAttribute="insert_utente_attr" method="post" action="save" novalidate="novalidate" class="row g-3">
+							<form:form modelAttribute="insert_utente_attr" method="post" action="saveSignUp" novalidate="novalidate" class="row g-3">
 					
 							
 								<div class="col-md-6">
@@ -88,26 +88,7 @@
 									<form:errors  path="confermaPassword" cssClass="error_field" />
 								</div>
 								
-								
-								<%--  checkbox ruoli 	--%>
-								<%-- facendolo con i tag di spring purtroppo viene un po' spaginato quindi aggiungo class 'a mano'	--%>
-								<div class="col-md-6 form-check" id="ruoliDivId">
-									<p>Ruoli:</p>
-									<form:checkboxes itemValue="id" itemLabel="codice"  element="div class='form-check'" items="${ruoli_totali_attr}" path="ruoliIds" />
-								</div>
-								<script>
-									$(document).ready(function(){
-										
-										$("#ruoliDivId :input").each(function () {
-											$(this).addClass('form-check-input'); 
-										});
-										$("#ruoliDivId label").each(function () {
-											$(this).addClass('form-check-label'); 
-										});
-										
-									});
-								</script>
-								<%-- fine checkbox ruoli 	--%>
+							
 								
 								
 								<div class="col-12">
@@ -131,6 +112,6 @@
 			</main>
 			
 			<!-- Footer -->
-			<jsp:include page="./footer.jsp" />
+			<jsp:include page="../footer.jsp" />
 	  </body>
 </html>

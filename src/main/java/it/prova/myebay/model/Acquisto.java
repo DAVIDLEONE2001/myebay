@@ -31,4 +31,69 @@ public class Acquisto {
 	@JoinColumn(name = "utente_id", nullable = false)
 	private Utente utenteAcquirente;
 	
+	
+	
+	public Acquisto() {
+		super();
+	}
+
+	public Acquisto(String descrizione, LocalDate data, Double prezzo, Utente utenteAcquirente) {
+		super();
+		this.descrizione = descrizione;
+		this.data = data;
+		this.prezzo = prezzo;
+		this.utenteAcquirente = utenteAcquirente;
+	}
+	
+
+	public Acquisto(Long id, String descrizione, LocalDate data, Double prezzo) {
+		super();
+		this.id = id;
+		this.descrizione = descrizione;
+		this.data = data;
+		this.prezzo = prezzo;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescrizione() {
+		return descrizione;
+	}
+
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public Double getPrezzo() {
+		return prezzo;
+	}
+
+	public void setPrezzo(Double prezzo) {
+		this.prezzo = prezzo;
+	}
+
+	public Utente getUtenteAcquirente() {
+		return utenteAcquirente;
+	}
+
+	public void setUtenteAcquirente(Utente utenteAcquirente) {
+		this.utenteAcquirente = utenteAcquirente;
+	}
+	
+	
+	
 }

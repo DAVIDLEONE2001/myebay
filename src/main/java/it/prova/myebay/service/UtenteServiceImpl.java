@@ -22,9 +22,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.myebay.exception.AnnuncioChiusoException;
+import it.prova.myebay.exception.CreditoResiduoNonSufficienteException;
+import it.prova.myebay.model.Acquisto;
+import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Ruolo;
 import it.prova.myebay.model.StatoUtente;
 import it.prova.myebay.model.Utente;
+import it.prova.myebay.repository.acquisto.AcquistoRepository;
+import it.prova.myebay.repository.annuncio.AnnuncioRepository;
 import it.prova.myebay.repository.utente.UtenteRepository;
 
 @Service
@@ -32,15 +38,16 @@ public class UtenteServiceImpl implements UtenteService {
 
 	@Autowired
 	private UtenteRepository repository;
+	@Autowired
+	private AnnuncioRepository annuncioRepository;
+	@Autowired
+	AcquistoRepository acquistoRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Value("${password.reset.newvalue}")
 	private String passwordResetValue;
-
-	
-	
 
 	@Transactional(readOnly = true)
 	public List<Utente> listAllUtenti() {
@@ -176,18 +183,72 @@ public class UtenteServiceImpl implements UtenteService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<String> ruoliUtenteSession() {
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth!=null) {
 
-		Utente u = repository.findByUsername(auth.getName()).orElse(null);
-		if (u==null){
-			return new ArrayList<String>();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+
+			Utente u = repository.findByUsername(auth.getName()).orElse(null);
+			if (u == null) {
+				return new ArrayList<String>();
+			}
+
+			return u.getRuoli().stream().map(ruolo -> ruolo.getCodice()).collect(Collectors.toList());
 		}
-		
-		return u.getRuoli().stream().map(ruolo -> ruolo.getCodice()).collect(Collectors.toList());
-	}
 		return null;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public boolean isAutenticato() {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+
+			Utente utenteInstance = repository.findByUsername(auth.getName()).orElse(null);
+			if (utenteInstance == null) {
+				return false;
+			}
+
+			return utenteInstance.getRuoli().size() > 0;
+
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Utente utenteSession() {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+
+			Utente utenteInstance = repository.findByUsername(auth.getName()).orElse(null);
+
+			return utenteInstance;
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void compra(Utente utente,Annuncio annuncio) {
+
+		
+		
+		if (utente.getCreditoResiduo()<annuncio.getPrezzo()) {
+			throw new CreditoResiduoNonSufficienteException("Credito Non Sufficiente");
+		}
+		if (!annuncio.getIsAperto()) {
+			throw new AnnuncioChiusoException("Annuncio Chiuso");
+		}
+		
+		annuncio.setIsAperto(false);
+		Acquisto acquistoTemp = new Acquisto(annuncio.getTestoAnnuncio(), annuncio.getDateCreated(), annuncio.getPrezzo(), utente);
+		acquistoRepository.save(acquistoTemp);
+		utente.getAcquisti().add(new Acquisto(annuncio.getTestoAnnuncio(), annuncio.getDateCreated(), annuncio.getPrezzo(), utente));
+		
+		annuncioRepository.save(annuncio);
+		repository.save(utente);
+		
+	}
 }

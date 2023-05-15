@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Utente;
 
 public interface UtenteService {
@@ -35,7 +36,13 @@ public interface UtenteService {
 	public void resetPasword(Long id);
 	
 	public void aggiornaPasword(Long id,String newPass);
+
+	List<String> ruoliUtenteSession();
+
+	boolean isAutenticato();
+
+	Utente utenteSession();
 	
-	public List<String> ruoliUtenteSession();
+	void compra(Utente utente, Annuncio annuncio);
 	
 }

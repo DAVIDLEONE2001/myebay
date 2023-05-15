@@ -17,15 +17,15 @@ public class HomeController {
 		
 		
 		if (utenteService.ruoliUtenteSession()==null){
-			return "public/index";
+			return "redirect:annuncio/search";
 		}
 		if (utenteService.ruoliUtenteSession().contains("ROLE_ADMIN")) {
-			return "utente/admin/index";
+			return "redirect:annuncio/search";
 		}
 		if (utenteService.ruoliUtenteSession().contains("ROLE_CLASSIC_USER")) {
-			return "utente/index";
+			return "redirect:annuncio/search";
 		}else
 		
-		return "public/index";
+		return "redirect:annuncio/search";
 	}
 }

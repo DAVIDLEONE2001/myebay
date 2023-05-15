@@ -6,15 +6,14 @@
 <!doctype html>
 <html lang="it" class="h-100">
 <head>
-<jsp:include page="../header.jsp" />
+<jsp:include page="./header.jsp" />
 <title>Ricerca</title>
 
 
 </head>
 <body class="d-flex flex-column h-100">
 	<!-- Fixed navbar -->
-	<jsp:include page="../navbar.jsp"></jsp:include>
-
+<jsp:include page="./navbar.jsp" />
 	<!-- Begin page content -->
 	<main class="flex-shrink-0">
 		<div class="container">
@@ -115,7 +114,6 @@
 		</div>
 		<!-- end container -->
 	</main>
-	<jsp:include page="../footer.jsp" />
-
+<jsp:include page="./footer.jsp" />
 </body>
 </html>

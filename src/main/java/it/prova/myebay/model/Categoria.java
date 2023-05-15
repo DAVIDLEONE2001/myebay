@@ -27,6 +27,13 @@ public class Categoria {
 	
 	
 
+	public Categoria(Long id) {
+		super();
+		this.id = id;
+	}
+
+
+
 	public Categoria(String descrizione, String codice) {
 		super();
 		this.descrizione = descrizione;

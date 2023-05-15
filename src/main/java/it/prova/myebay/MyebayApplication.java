@@ -47,7 +47,7 @@ public class MyebayApplication implements CommandLineRunner {
 		// password non lo
 		// faccio qui perche gia lo fa il service di utente, durante inserisciNuovo
 		if (utenteServiceInstance.findByUsername("admin") == null) {
-			Utente admin = new Utente("admin", "admin", "Mario", "Rossi", LocalDate.now());
+			Utente admin = new Utente("admin", "admin", "Mario", "Rossi", LocalDate.now(),5000.0);
 			admin.getRuoli().add(ruoloServiceInstance.cercaPerDescrizioneECodice("Administrator", "ROLE_ADMIN"));
 			utenteServiceInstance.inserisciNuovo(admin);
 			// l'inserimento avviene come created ma io voglio attivarlo
@@ -55,7 +55,7 @@ public class MyebayApplication implements CommandLineRunner {
 		}
 
 		if (utenteServiceInstance.findByUsername("user") == null) {
-			Utente classicUser = new Utente("user", "user", "Antonio", "Verdi", LocalDate.now());
+			Utente classicUser = new Utente("user", "user", "Antonio", "Verdi", LocalDate.now(),5000.0);
 			classicUser.getRuoli()
 					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER"));
 			utenteServiceInstance.inserisciNuovo(classicUser);
@@ -64,7 +64,7 @@ public class MyebayApplication implements CommandLineRunner {
 		}
 
 		if (utenteServiceInstance.findByUsername("user1") == null) {
-			Utente classicUser1 = new Utente("user1", "user1", "Antonioo", "Verdii", LocalDate.now());
+			Utente classicUser1 = new Utente("user1", "user1", "Antonioo", "Verdii", LocalDate.now(),5000.0);
 			classicUser1.getRuoli()
 					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER"));
 			utenteServiceInstance.inserisciNuovo(classicUser1);
@@ -73,7 +73,7 @@ public class MyebayApplication implements CommandLineRunner {
 		}
 
 		if (utenteServiceInstance.findByUsername("user2") == null) {
-			Utente classicUser2 = new Utente("user2", "user2", "Antoniooo", "Verdiii", LocalDate.now());
+			Utente classicUser2 = new Utente("user2", "user2", "Antoniooo", "Verdiii", LocalDate.now(),5000.0);
 			classicUser2.getRuoli()
 					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER"));
 			utenteServiceInstance.inserisciNuovo(classicUser2);

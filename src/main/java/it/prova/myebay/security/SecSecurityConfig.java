@@ -40,7 +40,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          .antMatchers("/**").permitAll()
          .antMatchers("/login").permitAll()
          .antMatchers("/account").hasAnyRole("ADMIN", "CLASSIC_USER")
-         .antMatchers("/utente/**").hasRole("ADMIN")
+         .antMatchers("/annuncio//utente").hasAnyRole("ADMIN", "CLASSIC_USER")
+         .antMatchers("/utente/admin").hasRole("ADMIN")
 //         .antMatchers("/**").hasAnyRole("ADMIN", "CLASSIC_USER")
 //         .antMatchers("/anonymous*").anonymous()
          .anyRequest().authenticated()
@@ -63,4 +64,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
             .disable();
 //         
     }
+    
+    
 }
