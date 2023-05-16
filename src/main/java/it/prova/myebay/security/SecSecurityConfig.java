@@ -37,20 +37,20 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	 http.authorizeRequests()
          .antMatchers("/assets/**").permitAll()
-         .antMatchers("/**").permitAll()
+         .antMatchers("/home/**").permitAll()
+         .antMatchers("/annuncio/**").permitAll()
          .antMatchers("/login").permitAll()
-         .antMatchers("/account").hasAnyRole("ADMIN", "CLASSIC_USER")
-         .antMatchers("/annuncio//utente").hasAnyRole("ADMIN", "CLASSIC_USER")
-         .antMatchers("/utente/admin").hasRole("ADMIN")
-//         .antMatchers("/**").hasAnyRole("ADMIN", "CLASSIC_USER")
-//         .antMatchers("/anonymous*").anonymous()
+         .antMatchers("/utente/signUp/**").permitAll()
+         .antMatchers("/account/**").hasAnyRole("ADMIN", "CLASSIC_USER")
+         .antMatchers("/annuncio/utente/**").hasAnyRole("ADMIN", "CLASSIC_USER")
+         .antMatchers("/acquisto/**").hasAnyRole("ADMIN", "CLASSIC_USER")
+         .antMatchers("/utente/areaPersonale").hasAnyRole("ADMIN", "CLASSIC_USER")
+         .antMatchers("/utente/**").hasRole("ADMIN")
          .anyRequest().authenticated()
          .and().exceptionHandling().accessDeniedPage("/accessDenied")
          .and()
          	.formLogin()
          	.loginPage("/login")
-//         	.defaultSuccessUrl("/home",true)
-         	//uso un custom handler perché voglio mettere delle user info in session
          	.successHandler(successHandler)
          	.failureUrl("/login?error=true")
          	.permitAll()
@@ -62,7 +62,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          .and()
             .csrf()
             .disable();
-//         
     }
     
     

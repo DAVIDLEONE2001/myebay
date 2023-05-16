@@ -153,7 +153,7 @@ public class AnnuncioDTO {
 		return result;
 	}
 
-	public static List<AnnuncioDTO> createFilmDTOListFromModelList(List<Annuncio> modelListInput,
+	public static List<AnnuncioDTO> createAnnuncioDTOListFromModelList(List<Annuncio> modelListInput,
 			boolean includeUtenti) {
 		return modelListInput.stream().map(annuncioEntity -> {
 			return AnnuncioDTO.buildAnnuncioDTO(annuncioEntity, includeUtenti);

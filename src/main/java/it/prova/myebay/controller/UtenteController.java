@@ -117,7 +117,7 @@ public class UtenteController {
 		return "redirect:/utente";
 	}
 
-	@PostMapping("/saveSignUp")
+	@PostMapping("/signUp/saveSignUp")
 	public String saveSignUp(
 			@Validated({ ValidationWithPassword.class,
 					ValidationNoPassword.class }) @ModelAttribute("insert_utente_attr") UtenteDTO utenteDTO,

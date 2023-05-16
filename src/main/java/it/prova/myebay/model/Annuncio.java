@@ -38,7 +38,7 @@ public class Annuncio {
 	
 	@ManyToMany
 	@JoinTable(name = "annuncio_categoria", joinColumns = @JoinColumn(name = "annuncio_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "ID"))
-	private Set<Categoria> categorie = new HashSet<>(0);
+	private Set<Categoria> categorie = new HashSet<Categoria>(0);
 
 	
 	

@@ -3,6 +3,7 @@ package it.prova.myebay.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.myebay.model.Annuncio;
+import it.prova.myebay.model.Categoria;
 import it.prova.myebay.repository.annuncio.AnnuncioRepository;
 
 @Service
@@ -74,6 +76,10 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 			if (example.getPrezzo() != null)
 				predicates.add(cb.greaterThanOrEqualTo(root.get("prezzo"), example.getPrezzo()));
 
+			if (!example.getCategorie().isEmpty()) {
+	            Join<Annuncio, Categoria> categoriaJoin = root.joinSet("categorie");
+	            predicates.add(categoriaJoin.in(example.getCategorie()));
+	        }
 			return cb.and(predicates.toArray(new Predicate[predicates.size()]));
 		};
 

@@ -116,7 +116,7 @@
 								</div>
 
 								<form class="d-inline"
-									action="${pageContext.request.contextPath}/acquisti"
+									action="${pageContext.request.contextPath}/acquisto"
 									method="get">
 									<button type="submit" class="cssbuttons-io-button">
 										I tuoi acquisti

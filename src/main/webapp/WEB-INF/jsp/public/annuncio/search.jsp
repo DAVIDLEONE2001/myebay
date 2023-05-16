@@ -7,7 +7,8 @@
 <head>
 	<jsp:include page="../header.jsp" />
 	<title>Ricerca</title>
-	
+	<link href="${pageContext.request.contextPath}/assets/css/mio.css"
+	rel="stylesheet">
     
 </head>
 <body class="d-flex flex-column h-100">
@@ -19,7 +20,9 @@
 	</c:otherwise>
 </c:choose>
 
-	
+	<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
 	
 	
 	<!-- Begin page content -->
@@ -71,6 +74,27 @@
 								<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
 							</div>
 	
+							<%--  checkbox ruoli 	--%>
+						<%-- facendolo con i tag di spring purtroppo viene un po' spaginato quindi aggiungo class 'a mano'	--%>
+						<div class="col-md-6 form-check" id="idsCategorie">
+							<p>Categorie:</p>
+							<form:checkboxes path="idsCategorie"
+								items="${categorie_annuncio_list}" itemValue="id"
+								itemLabel="descrizione" element="div class='form-check'" />
+						</div>
+						<script>
+							$(document).ready(function() {
+
+								$("#idsCategorie :input").each(function() {
+									$(this).addClass('form-check-input');
+								});
+								$("#idsCategorie label").each(function() {
+									$(this).addClass('form-check-label');
+								});
+
+							});
+						</script>
+						<%-- fine checkbox ruoli 	--%>
 							
 						</form:form>
 			    

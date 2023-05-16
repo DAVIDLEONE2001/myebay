@@ -27,8 +27,12 @@ public class AcquistoController {
 		ModelAndView mv = new ModelAndView();
 		List<Acquisto> annunci = acquistoService.acquistiDiUtente(utenteService.utenteSession());
 		// trasformiamo in DTO
-
-		mv.addObject("annuncio_list_attribute", AcquistoDTO.createAcquistoDTOListFromModelList(annunci, true));
+		List<AcquistoDTO> annunciDTO = AcquistoDTO.createAcquistoDTOListFromModelList(annunci, true);
+		if (annunciDTO.isEmpty()) {
+			mv.addObject("infoMessage","Al momento non hai acquistato nulla!" );
+			
+		}
+		mv.addObject("annuncio_list_attribute",annunciDTO );
 		mv.setViewName("utente/acquisto/list");
 		return mv;
 	}

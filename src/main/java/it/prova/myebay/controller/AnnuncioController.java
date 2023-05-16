@@ -47,17 +47,22 @@ public class AnnuncioController {
 		List<Annuncio> annunci = annuncioService.listAll();
 		// trasformiamo in DTO
 
-		mv.addObject("annuncio_list_attribute", AnnuncioDTO.createFilmDTOListFromModelList(annunci, true));
+		mv.addObject("annuncio_list_attribute", AnnuncioDTO.createAnnuncioDTOListFromModelList(annunci, true));
 		mv.setViewName("public/annuncio/list");
 		return mv;
 	}
 	@GetMapping("/utente")
-	public ModelAndView listAllAnnunciUtente() {
+	public ModelAndView listAllAnnunciUtente(Model model) {
 		ModelAndView mv = new ModelAndView();
 		List<Annuncio> annunci = annuncioService.listAll();
 		// trasformiamo in DTO
-		
-		mv.addObject("annuncio_list_attribute", AnnuncioDTO.createFilmDTOListFromModelList(annuncioService.filtraPerUtenteEOAttivo(annunci,false), true));
+		List<AnnuncioDTO> annunciUtenteDTO = AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.filtraPerUtenteEOAttivo(annunci,false), true);
+		if (annunciUtenteDTO.isEmpty()) {
+			
+			mv.addObject("infoMessage","Al momento non hai creato nessun annuncio!" );
+			
+		}
+		mv.addObject("annuncio_list_attribute",annunciUtenteDTO );
 		mv.setViewName("public/annuncio/list");
 		return mv;
 	}
@@ -121,7 +126,7 @@ public class AnnuncioController {
 		model.addAttribute("search_annuncio_attr", new AnnuncioDTO());
 		List<CategoriaDTO> categorieTotali = CategoriaDTO
 				.createCategoriaDTOListFromModelList(categoriaService.listAll());
-		model.addAttribute("categorie_totali_attr", categorieTotali);
+		model.addAttribute("categorie_annuncio_list", categorieTotali);
 		return "public/annuncio/search";
 	}
 
@@ -135,7 +140,7 @@ public class AnnuncioController {
 				.getContent();
 //		List<Annuncio> annunciList = annuncioService.filtraPerUtenteEOAttivo(annunci, true);
 
-		model.addAttribute("annuncio_list_attribute", AnnuncioDTO.createFilmDTOListFromModelList(annunci, true));
+		model.addAttribute("annuncio_list_attribute", AnnuncioDTO.createAnnuncioDTOListFromModelList( annunci, true));
 		return "public/annuncio/list";
 	}
 

@@ -1,5 +1,7 @@
 package it.prova.myebay.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -69,6 +71,8 @@ public class Categoria {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+
+
 	
 }

@@ -7,24 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import it.prova.myebay.service.UtenteService;
 
 @Controller
+@RequestMapping(value = {"/home"})
 public class HomeController {
 	
 	@Autowired
 	UtenteService utenteService;
 	
-	@RequestMapping(value = {"/home",""})
+	@RequestMapping()
 	public String home() {
 		
 		
-		if (utenteService.ruoliUtenteSession()==null){
-			return "redirect:annuncio/search";
-		}
-		if (utenteService.ruoliUtenteSession().contains("ROLE_ADMIN")) {
-			return "redirect:annuncio/search";
-		}
-		if (utenteService.ruoliUtenteSession().contains("ROLE_CLASSIC_USER")) {
-			return "redirect:annuncio/search";
-		}else
 		
 		return "redirect:annuncio/search";
 	}
