@@ -79,7 +79,7 @@
 				<div class='card-footer'>
 					 
 					 <c:choose>
-					<c:when test="${show_annuncio_attr.utenteInserimento.username != userInfo.username}">
+					<c:when test="${show_annuncio_attr.utenteInserimento.id != utente.id}">
 	
 				<form action="${pageContext.request.contextPath}/annuncio/compra"
 						method="post">
@@ -96,11 +96,19 @@
 							</form>
 							</c:when>
 							<c:otherwise>
-					<a
+					<form action="${pageContext.request.contextPath}/annuncio/utente/annuncio/edit"
+						method="get">
+						<input type="hidden" value="${show_annuncio_attr.id}" name="idAnnuncio"
+							id="idAnnuncio">
+						<button type="submit" name="submit" id="submit"
+							class="btn btn-warning">Modifica</button>
+							
+							<a
 						href="${pageContext.request.contextPath}/annuncio"
 						class='btn btn-outline-secondary' style='width: 80px;'> <i
 						class='fa fa-chevron-left'></i> Back
 					</a>
+							</form>
 					</c:otherwise>
 					 </c:choose>
 				</div>

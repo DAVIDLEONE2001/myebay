@@ -56,7 +56,7 @@
 
 
 					<form:form method="post" modelAttribute="insert_annuncio_attr"
-						action="${pageContext.request.contextPath }/annuncio/utente/annuncio/save"
+						action="${pageContext.request.contextPath }/annuncio/utente/annuncio/executeEdit"
 						novalidate="novalidate" class="row g-3">
 
 						<div class="col-md-6">
@@ -118,9 +118,9 @@
 						<%-- facendolo con i tag di spring purtroppo viene un po' spaginato quindi aggiungo class 'a mano'	--%>
 						<div class="col-md-6 form-check" id="idsCategorie">
 							<p>Categorie:</p>
-							<form:checkboxes path="idsCategorie"
+							<form:checkboxes path="idsCategorie" 
 								items="${categorie_annuncio_list}" itemValue="id"
-								itemLabel="descrizione" element="div class='form-check'" />
+								itemLabel="descrizione" element="div class='form-check'"  />
 						</div>
 						<script>
 							$(document).ready(function() {
@@ -135,7 +135,7 @@
 							});
 						</script>
 						<%-- fine checkbox ruoli 	--%>
-
+						<input type="hidden" value="${insert_annuncio_attr.id }" name="id" id="id">
 						<div class="col-12">
 							<button type="submit" name="submit" value="submit" id="submit"
 								class="btn btn-primary">Conferma</button>

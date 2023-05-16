@@ -51,6 +51,16 @@ public class AnnuncioController {
 		mv.setViewName("public/annuncio/list");
 		return mv;
 	}
+	@GetMapping("/utente")
+	public ModelAndView listAllAnnunciUtente() {
+		ModelAndView mv = new ModelAndView();
+		List<Annuncio> annunci = annuncioService.listAll();
+		// trasformiamo in DTO
+		
+		mv.addObject("annuncio_list_attribute", AnnuncioDTO.createFilmDTOListFromModelList(annuncioService.filtraPerUtenteEOAttivo(annunci,false), true));
+		mv.setViewName("public/annuncio/list");
+		return mv;
+	}
 
 	@GetMapping("/utente/annuncio/insert")
 	public String createAnnuncio(Model model) {
@@ -59,6 +69,15 @@ public class AnnuncioController {
 				.createCategoriaDTOListFromModelList(categoriaService.listAll());
 		model.addAttribute("categorie_annuncio_list", categorieTotali);
 		return "utente/annuncio/insert";
+	}
+	@GetMapping("/utente/annuncio/edit")
+	public String createAnnuncioEdit(Long idAnnuncio ,Model model) {
+		Annuncio result = annuncioService.findByIdEagher(idAnnuncio);
+		model.addAttribute("insert_annuncio_attr", AnnuncioDTO.buildAnnuncioDTO(result, false));
+		List<CategoriaDTO> categorieTotali = CategoriaDTO
+				.createCategoriaDTOListFromModelList(categoriaService.listAll());
+		model.addAttribute("categorie_annuncio_list", categorieTotali);
+		return "utente/annuncio/edit";
 	}
 
 	@PostMapping("/utente/annuncio/save")
@@ -75,6 +94,24 @@ public class AnnuncioController {
 		annuncioDTO.setIsAperto(true);
 		annuncioService.inserisciNuovo(annuncioDTO.buildAnnuncioModel());
 
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/annuncio";
+	}
+	@PostMapping("/utente/annuncio/executeEdit")
+	public String editAnnuncio(@Valid @ModelAttribute("insert_annuncio_attr") AnnuncioDTO annuncioDTO,
+			BindingResult result, RedirectAttributes redirectAttrs, Model model) {
+		
+		if (result.hasErrors()) {
+			List<CategoriaDTO> categorieTotali = CategoriaDTO
+					.createCategoriaDTOListFromModelList(categoriaService.listAll());
+			model.addAttribute("categorie_annuncio_list", categorieTotali);
+			return "utente/annuncio/edit";
+		}
+		annuncioDTO.setUtenteInserimento(UtenteDTO.buildUtenteDTOFromModel(utenteService.utenteSession(), false));
+		annuncioDTO.setIsAperto(true);
+		System.err.println(annuncioDTO.getId()+"dioooo");
+		annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel());
+		
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/annuncio";
 	}
@@ -129,6 +166,7 @@ public class AnnuncioController {
 		List<CategoriaDTO> listaCategiorieDTO = CategoriaDTO.createCategoriaDTOListFromModelList(
 				(new ArrayList<Categoria>(annuncioService.findByIdEagher(idAnnuncio).getCategorie())));
 		model.addAttribute("list_categorie_annuncio_attr", listaCategiorieDTO);
+		model.addAttribute("utente",utenteService.utenteSession());
 		return "public/annuncio/show";
 	}
 

@@ -100,7 +100,7 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 		
 		List<Annuncio>result = new ArrayList<>();
 		for (Annuncio annuncioItem : annunci) {
-			if (!annuncioItem.getUtenteInserimento().getId().equals(utenteService.utenteSession().getId())){
+			if (annuncioItem.getUtenteInserimento().getId().equals(utenteService.utenteSession().getId())){
 				
 				result.add(annuncioItem);
 			}

@@ -83,6 +83,7 @@ public class UtenteController {
 	}
 	@GetMapping("/areaPersonale")
 	public String areaP(Model model) {
+		model.addAttribute("utente",utenteService.utenteSession());
 		return "utente/areapersonale";
 	}
 
